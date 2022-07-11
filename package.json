@@ -7,9 +7,13 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
+    "emoji-mart": "^3.0.1",
+    "firebase": "^9.9.0",
     "next": "latest",
+    "next-auth": "^4.9.0",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
