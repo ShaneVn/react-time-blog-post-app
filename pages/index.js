@@ -1,9 +1,15 @@
 import Head from 'next/head'
 import Sidebar from '../components/Sidebar'
 import Feed from "../components/Feed"
+import Login from "../components/Login"
 import { getProviders, getSession, useSession } from "next-auth/react";
 
-export default function Home() {
+export default function Home({trendingResults, followResults, providers }) {
+
+  const  { data: session} = useSession()
+
+  if(! session) {return <Login providers = {providers}/>}
+
   return (
     <div className="">
       <Head>
@@ -14,6 +20,7 @@ export default function Home() {
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar/>
         <Feed/>
+        {session.user.name}
       </main>
     </div>
   )

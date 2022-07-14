@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import SidebarLink from "./SidebarLink";
 import { HomeIcon } from "@heroicons/react/solid";
+import { useSession, signOut } from "next-auth/react";
 import {
   HashtagIcon,
   BellIcon,
@@ -14,6 +15,9 @@ import {
 } from "@heroicons/react/outline";
 
 function Sidebar() {
+
+  const {data: session} = useSession()
+
   return (
     <div
       className="flex-col hidden sm:flex items-center xl:items-start
@@ -47,18 +51,19 @@ function Sidebar() {
       </button>
 
       <div
-        className="mt-auto text-[#D9D9D9] xl:ml-auto xl:mr-5 flex hoverAnimation 
+        className="mt-auto text-[#D9D9D9] xl:ml-auto  flex hoverAnimation 
         items-center justify-center
       "
+      onClick={signOut}
       >
         <img
-          src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+          src={session.user.image}
           alt=""
           className="w-10 h-10 rounded-full xl:mr-2.5"
         />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold">firebase</h4>
-          <p className="test-[#6e767d]">@fireb243</p>
+          <h4 className="font-bold">{session.user.name}</h4>
+          <p className="test-[#6e767d]">@{session.user.tag}</p>
         </div>
 
         <DotsHorizontalIcon className="h-5 ml-10 hidden xl:inline " />
