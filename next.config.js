@@ -3,3 +3,4 @@ module.exports = {
     domains: ["rb.gy"],
   },
 };
+

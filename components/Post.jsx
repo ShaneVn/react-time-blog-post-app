@@ -151,7 +151,8 @@ function Post({ id, post, postPage }) {
               setIsOpen(true);
             }}
           >
-            <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10">
+            <div className="icon group-hover:bg-[#1d9bf0] group-hover:bg-opacity-10"
+            >
               <ChatIcon className="h-5 group-hover:text-[#1d9bf0]" />
             </div>
             {comments.length > 0 && (

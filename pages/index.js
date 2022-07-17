@@ -6,6 +6,7 @@ import Modal from "../components/Modal"
 import { modalState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
 import { getProviders, getSession, useSession } from "next-auth/react";
+import Widgets from "../components/Widgets"
 
 export default function Home({trendingResults, followResults, providers }) {
 
@@ -24,6 +25,10 @@ export default function Home({trendingResults, followResults, providers }) {
       <main className='bg-black min-h-screen flex max-w-[1500px] mx-auto'>
         <Sidebar/>
         <Feed/>
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
         {isOpen && <Modal/>}
       </main>
     </div>

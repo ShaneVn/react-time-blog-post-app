@@ -19,7 +19,7 @@ import {
 import { db } from "../firebase";
 import Post from "../components/Post";
 import Comments from "../components/Comments";
-import { comment } from "postcss";
+import Widgets from "../components/Widgets"
 
 export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession();
@@ -48,7 +48,6 @@ export default function Home({ trendingResults, followResults, providers }) {
       ),
     [db, id]
   );
-  
 
   if (!session) {
     return <Login providers={providers} />;
@@ -77,11 +76,20 @@ export default function Home({ trendingResults, followResults, providers }) {
           {comments.length > 0 && (
             <div className="pb-72">
               {comments.map((comment) => (
-                <Comments key={comment.id} id={comment.id} comment={comment.data()} />
+                <Comments
+                  key={comment.id}
+                  id={comment.id}
+                  comment={comment.data()}
+                />
               ))}
             </div>
           )}
         </div>
+
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
         {isOpen && <Modal />}
       </main>
     </div>
