@@ -99,6 +99,7 @@ function Input() {
             placeholder="what's happening"
             rows="2"
             value={input}
+            maxLength="280"
             onChange={(e) => setInput(e.target.value)}
             className="bg-transparent min-h-[50px] w-full tracking-wide text-[#d9d9d9] outline-none text-lg placeholder-gray-500"
           />

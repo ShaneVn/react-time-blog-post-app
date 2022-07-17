@@ -22,10 +22,10 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  orderBy,
   setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { async } from "@firebase/util";
 
 function Post({ id, post, postPage }) {
   const { data: session } = useSession();
@@ -36,6 +36,16 @@ function Post({ id, post, postPage }) {
   const router = useRouter();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
+
+  useEffect(
+    () =>
+      onSnapshot(
+        collection(db, "posts", id, "comments"),
+        orderBy("timestamp", "desc"),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db, id]
+  );
 
   useEffect(
     () =>
@@ -50,7 +60,7 @@ function Post({ id, post, postPage }) {
       setLiked(
         likes.findIndex((like) => like.id === session?.user?.uid) !== -1
       ),
-    [likes]
+    [likes, session]
   );
 
   const likePost = async () => {
@@ -66,7 +76,10 @@ function Post({ id, post, postPage }) {
   return (
     <div
       className="p-3 flex cursor-pointer border-b border-gray-700"
-      // onClick={() => router.push(`/${id}`)}
+      onClick={() => {
+        router.push(`/${id}`);
+        setPostId(id);
+      }}
     >
       {!postPage && (
         <img
@@ -183,7 +196,7 @@ function Post({ id, post, postPage }) {
                 <HeartIcon className="h-5 group-hover:text-pink-600" />
               )}
             </div>
-            {/* {likes.length > 0 && (
+            {likes.length > 0 && (
               <span
                 className={`group-hover:text-pink-600 text-sm ${
                   liked && "text-pink-600"
@@ -191,7 +204,7 @@ function Post({ id, post, postPage }) {
               >
                 {likes.length}
               </span>
-            )} */}
+            )}
           </div>
 
           <div className="icon group">
