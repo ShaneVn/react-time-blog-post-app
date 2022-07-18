@@ -1,6 +1,7 @@
 import { SearchIcon } from "@heroicons/react/outline";
 import React from "react";
-import Trending from "./Trending"
+import Trending from "./Trending";
+import Image from "next/image";
 
 function Widgets({ trendingResults, followResults }) {
   return (
@@ -15,14 +16,46 @@ function Widgets({ trendingResults, followResults }) {
           />
         </div>
       </div>
-
       <div className="text-[#d9d9d9] space-y-3 bg-[#15181c] pt-2 rounded-xl w-11/12 xl:w-9/12">
         <h4 className="font-bold text-xl px-4">what's happening</h4>
         {trendingResults.map((result, index) => (
           <Trending key={index} result={result} />
         ))}
-        <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer
-        transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-medium">Show More</button>
+        <button
+          className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer
+        transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] 
+        font-light"
+        >
+          Show More
+        </button>
+      </div>
+
+      <div className="bg-[#15181c] space-y-3 rounded-xl text-[#d9d9d9] w-11/12 xl:w-9/12  pt-2">
+        <h4 className="font-bold text-xl px-4">Who to Follow</h4>
+        {followResults.map((result, index) => (
+          <div className="px-4 py-2 flex items-center">
+            <Image
+              src={result.userImg}
+              width={50}
+              height={50}
+              objectFit="cover"
+              className="rounded-full "
+            />
+
+            <div className="px-4">
+              <h4 className="font-bold">{result.username}</h4>
+              <span className="text-sm text-[#6e767d]">{result.tag}</span>
+            </div>
+
+            <button className="ml-auto bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5">
+              Follow
+            </button>
+          </div>
+        ))}
+
+        <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
+          Show More
+        </button>
       </div>
     </div>
   );
